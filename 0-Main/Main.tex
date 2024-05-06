@@ -1,0 +1,74 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           Fichier maître              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twocolumn,10pt]{article} % Utilisation du mode deux colonnes
+\input{Preambule}		                   % Liste des packages et de leurs options
+
+% Configuration des métadonnées du PDF
+\hypersetup{
+    pdfauthor={Alexandre Souchaud},
+    pdfsubject={Review Dicty},
+    pdftitle={Review Dicty},
+    pdfkeywords={Biophysique, Review, migration, Dictyostelium}
+}
+
+% Configuration du titre de l'article
+\title{Dicty's motility}
+
+% Configuration des auteurs et leurs appartenances
+\author[1]{A. Souchaud}
+\author[2]{S. DeMonte}
+
+\affil[1]{\small Institut de Biologie de l'ENS, France}
+\affil[2]{\small Allemagne}
+
+% Configuration de la date
+\date{May 2024}  % Date de publication
+
+% Début du document
+\begin{document}
+
+\maketitle  % Crée le titre du document
+
+% \tableofcontents  % Crée la table des matières
+
+\begin{abstract}
+    Dictyostelium discoideum est un modèle particulièrement pertinent pour étudier la coopération et 
+    le comportement collectif des cellules sous l'angle de l'évolution. La régulation génétique de
+     l'agrégation cellulaire joue un rôle clé dans le comportement lié à la fitness des cellules.
+      Cependant, les variations phénotypiques, influencées par l'environnement, ont également un impact
+       significatif. Cette revue se concentrera sur l'impact des variations phénotypiques, en particulier 
+       la motilité et l'adhésion cellulaire, sur la fitness. Elle examinera également comment l'altération de ces 
+       caractéristiques par les conditions environnementales peut influencer l'évolution des traits au fil du temps. 
+       En tenant compte de la variabilité des processus d'agrégation, nous explorerons les mécanismes par lesquels 
+       ces traits phénotypiques influencent la fitness et comment ils peuvent être ciblés pour orienter l'évolution 
+       de l'organisme.
+\end{abstract}
+
+\section{I. Weber et al. 1995}
+
+During the growth phase and early development, cells of D. discouideum are extensively spread over a surface on which the move.
+After 6+7 hours of starvation : cells become aggregation-competent (capacity of assembling into streams and responding chemotactically to cAMP)
+This is accompained by distinc changes in cell shape and locomotion. Cells become elongated. This changes are accompagned 
+by a dramatic reduction in size of the area of contact wtween cell and substratum. \cite{Weber_1995}
+
+\textbf{Cell shape change upon contact with a substrate at the onset of the aggregation phase:}
+Different studies of cell motility, where aggregation is possible, on surfaces that are moderately (BSA-coated glass surface) and highly adhesive (silanized glass), show that adhesion plays a role in the shape of the cells as well as in their biological activity (loss of parts of their membrane during movement), Schindl et al., 1995.
+
+\textbf{Relationship between cell shape change and the contact surface with the substrate during the chemotaxis phase:}
+Cyclic AMP influences the cells' response to adhesion: for instance, the competition between two pseudopods, one of which is not adherent and the other is. It is the one that is not adherent to the substrate that will eventually become the leading front of the cell.
+
+\textbf{Motility of WT and mutant cells on different substrates:}
+The AX2-WT cells do not seem to show differences in motility across different substrates (BSA coated and mica).
+However, the mutant cells (lacking two F-actin crosslinking proteins) behave significantly differently on mica.
+
+\section{T.J. Lampert et al.}
+\cite{Weber_2017}
+
+\section{SCAR knockouts in Dictyostelium: Weltman 2012}
+\cite{Veltman_2012} 
+
+\bibliography{../Bibliographie/bibliographie}  % Inclut la bibliographie
+
+\end{document}

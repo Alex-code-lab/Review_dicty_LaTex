@@ -1,0 +1,41 @@
+\chapter{Les équations}
+\label{chap_exp}
+	\section{des exemples}
+		\label{chap_exp:Composition chimique}
+Je vous mets une petite équation vite fait pour voir. 
+	\begin{equation}
+		q(\chi)=\frac{n(\chi)}{n(DMS)} = 1,37.10^{-1} 
+	\end{equation}
+	\begin{equation}
+		q(\Upsilon)=\frac{n(\Upsilon)}{n(DMS)} = 3,82.10^{-2}
+	\end{equation}
+	\begin{equation}
+		q(Pt)=\frac{n(Pt)}{n(DMS)} = 4,13.10^{-3}
+	\end{equation}			
+	
+	et maintenant on met des bouts d'équations dans le texte directement.
+Pour un volume élémentaire parallélépipédique, chaque composante $\sigma_{ij}$ du tenseur des contraintes s'exprime en fonction de la force élémentaire $d\vec{F_i}$ qui s'exerce sur un élément de surface limitant le volume (fig. \ref{fig:sigma_tenseur}). Cette force élémentaire peut être décomposée selon les trois axes de la base choisie. On obtient alors par exemple $\sigma_{zz} = \frac{dF_{zz}}{dS}$ avec $dS_z = dxdy$ ; et de même on a $\sigma_{zx} = \frac{dF_{zx}}{dS}$ ; $\sigma_{zy} = \frac{dF_{zy}}{dS}$. Ce résultat peut être généralisé à toutes les faces du parallélépipède. Le tenseur $\overline{\overline{\sigma}}$. \\
+\begin{equation}
+\overline{\overline{\varepsilon}}
+=
+\begin{pmatrix}
+\ln(\frac{a_X}{a}) & 0 & 0 \\ 
+0 & \ln(\frac{a_Y}{a}) & 0 \\ 
+0 & 0 & \ln(\frac{a_Z}{a}) 
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+\frac{a_X-a}{a} & 0 & 0 \\ 
+0 & \frac{a_Y-a}{a} & 0 \\ 
+0 & 0 & \frac{a_Z-a}{a} 
+\end{pmatrix}
+\end{equation}
+Donc finalement, dans la base naturelle à l'ellipsoïde, on a :
+\begin{equation}
+\boxed{
+\forall i \in (X,Y,Z) 
+\;\;\;\;\;\;\;
+\sigma_{d_i} = 2\mu\frac{a_i-a}{a}
+}
+\label{equafinale_ln}
+\end{equation}

@@ -1,0 +1,713 @@
+\chapter{Culture des cellules}
+		\section{Milieu de culture}		
+		\label{chap_annexe:milieu_culture}
+		Les boîtes de culture utilisées sont les boîtes T75 (Nunc\texttrademark EasYFlask\texttrademark Cell Culture Flasks T25, filter).
+		Le milieu de culture complet utilisé est composés de :
+				 \begin{itemize}
+				 \item 88,9\% de D-MEM (1X) (liquid (High Glucose), avec Glutamax I, avec Sodium Pyrivate, 500ml)
+				 \item 10\% FBS, (Foetal Bovine Serum, Origin: E.U. Approved (South American) 500 ml)
+				 \item 1\% antibiotiques (Penicillin-Streptomycin, liquid 10 0ml)				 			 
+				 \end{itemize}	
+				 Pour les cellules transfectées, on ajoute un antibiotique de stabilisation des lignées cellulaires transfectées :
+				 \begin{itemize}
+				 	\item Concentration en 1/5000 en masse de GENETICIN Selective Antibiotic, liquide à 5 mg/ml  	
+				 \end{itemize}
+		\section{Transfection des cellules}
+		\label{chap_annexe:transfection_cellule}
+			\subsubsection*{Transfection du plasmide}
+		\begin{itemize}
+		\item[$\bullet$] La transfection des F9 et des CT26 est faite à partir du plasmide F-Tractin (FT).
+		\item[$\bullet$] Contrairement à l'utilisation du plasmide LifeAct, l'avantage de l'utilisation de la F-Tractin est que l'on modifie une peptide sans en ajouter. L'actine est fluorescente sans que les propriétés mécaniques de la cellule ne soient modifiées. Cependant, avec la F-Tractin, la transfection n'est pas stabilisée, et il est donc nécessaire d'utiliser ensuite un antibiotique de sélection.  
+		
+		\item[$\bullet$] La transfection est effectuée dans plusieurs boîtes de Petri avec un fond en verre afin d'optimiser les chances de transfection. 
+		
+		\item[$\bullet$] Les cellules doivent être à 70\% de confluence pour débuter la transfection. 
+		
+		\item[$\bullet$] Préparer un premier tube avec :
+			\begin{itemize}
+			\item 100 $\mu$L d'Opti-ME\texttrademark Gibco\texttrademark, supplément GlutaMAX\texttrademark.
+			\item 2 $\mu$g D'ADN de transfectin (ADN à 1 $\mu$g/$\mu$L). Attention à ne pas cisailler, ni à toucher les bords du récipient pour éviter de détériorer le matériel génétique. 
+		\end{itemize}	
+		\item[$\bullet$] Dans un second tube on ajoute : 
+		\begin{itemize}
+			\item 100 $\mu$L d'Opti-MEM\texttrademark Gibco\texttrademark, supplément GlutaMAX\texttrademark.
+			\item 4 $\mu$g d'agent de transfection (DreamFect\texttrademark Gold Tranfection Reagent).
+		\end{itemize}	
+		Pour optimiser les chances de réussites de la transfection, il est conseillé de préparer différentes dilutions allant de 4 à 8 $\mu$l d'agent de transfection qui seront testées dans différentes boîtes de Petri. En effet, les cellules F9 sont des cellules embryonnaires qu'il peut être difficile de transfecter et les concentrations sont cruciales pour la réussite de la transfection. 
+		
+		\item[$\bullet$] Les solutions sont mélangées séparément par retournement : ne surtout pas cisailler. 
+		
+		\item[$\bullet$] Mélanger ensuite les deux tubes. Puis, cette fois, cisailler pour optimiser le mélange. 
+		\item[$\bullet$]  Incuber 20 minutes à 37$^{\circ}$C.
+		
+		\item[$\bullet$] Dans des boîtes à 80\% de confluence, changer le milieu et mettre du Opti-MEM\texttrademark Gibco\texttrademark. 
+		\item[$\bullet$] Laisser incuber 1 h à 37$^{\circ}$C.
+		
+		\item[$\bullet$] Ajouter ensuite le mélange de transfection, puis le déposer goutte par goutte. 
+		
+		\item[$\bullet$] Incuber 4 h à 37$^{\circ}$C.
+		
+		\item[$\bullet$] A l'issue des 4 h, ajouter en proportion : 10\% de FBS et 1\% d'antibiotique PS. 
+		
+		\item[$\bullet$] Après 24 h, changer le milieu de culture pour un milieu de culture complet. Une importante mort cellulaire est normale et n'est pas signe que la transfection a échoué.
+		\end{itemize}
+			\subsubsection*{Sélection des cellules transfectées}
+			Après traitement par l'agent de transfection, lorsque les cellules sont à confluence : 
+			\begin{itemize}
+			\item[$\bullet$] L'observation des cellules en fluorescence permet de déterminer le pourcentage de réussite de transfection. A partir d'environ 10\% des cellules fluorescentes, la transfection est réussie. 
+			\item[$\bullet$] Effectuer un passage de cellule avec un milieu complet sans antibiotique de sélection G418.
+			\item[$\bullet$] Après 1 h d'incubation à 37$^{\circ}$C, ajouter l'antibiotique de sélection G418 à une concentration de 150 $\mu$g/$\mu$L de milieu.
+			\item[$\bullet$] Si après plusieurs jours la proportion en cellules transfectées n'augmente pas, augmenter la concentration en antibiotique de sélection. Une fois toutes les cellules sélectionnées, revenir, pour la culture quotidienne, à une concentration de  150 $\mu$g/$\mu$L.
+			\end{itemize}
+	
+
+
+\chapter{Si vous avez du code : }
+		\section{Fonctions utilisées pour l'analyse d'image}
+		\label{chap_annexe:code_fonction_analyse}
+		%\lstinputlisting[language=python, firstline=504, lastline=507]{../2-Methodes_experimentales/images/mesh.py}
+\begin{customFrame}
+import numpy as np
+from math import *
+import os
+import matplotlib.pyplot as plt
+from skimage import io
+import skimage
+from skimage.segmentation import circle_level_set, inverse_gaussian_gradient, morphological_geodesic_active_contour
+import glob
+import re
+import scipy
+from scipy import ndimage
+from pylab import diag, eig
+
+def store_evolution_in(lst):
+    """Returns a callback function to store the evolution of the level sets in
+    the given list.
+    """
+
+    def _store(x):
+        lst.append(np.copy(x))
+
+    return _store
+      
+
+def image_contour(image) :
+# =============================================================================
+#     Gradient par convolution 
+# =============================================================================
+    contour_kernel_grad = np.zeros_like(image)
+
+    kernel_z = np.zeros((3,3,3))
+    kernel_z[0,1,1] = -1
+    kernel_z[2,1,1] = 1
+    
+    kernel_x = np.zeros((3,3,3))
+    kernel_x[1,1,0] = -1
+    kernel_x[1,1,2] = 1
+    
+    kernel_y = np.zeros((3,3,3))
+    kernel_y[1,0,1] = -1
+    kernel_y[1,2,1] = 1    
+    
+    contour_kernel_grad = np.sqrt((ndimage.filters.convolve(image, kernel_x, mode =  constant ))**2+((ndimage.filters.convolve(image, kernel_y,mode =  constant ))**2)+(ndimage.filters.convolve(image, kernel_z,mode =  constant ))**2)
+    
+    
+    return np.array(contour_kernel_grad).astype(np.float32)
+
+#  
+# =============================================================================
+# Fit ellipsoide
+# =============================================================================
+def mldivide(a, b):
+    dimensions = a.shape
+    if dimensions[0] == dimensions[1]:
+        return scipy.linalg.solve(a, b)
+    else:
+        return scipy.linalg.lstsq(a, b)[0] 
+        
+def fit_ellipsoide(XYZ,I):
+    # =============================================================================
+#    retrouver l ellipsoide
+#    On defini l ellipsoide par son equation : (A2/a2 + B2/b2 +C2/c2) = 1 
+#    On utilise la methode des moindres carres : Somme((A2/a2 + B2/b2 +C2/c2 -1 ) min
+    # =============================================================================
+    N = XYZ.shape[0]
+    print(N)
+    var=np.zeros((N,9));
+    square=np.zeros((N,1)) ;
+    XYZ0=np.zeros((N,3));
+    dist=np.zeros((N,1)) ;
+    cut=np.zeros((N,1)) ;
+    C_0 = np.zeros((3,1))
+    A = I.copy()
+    # definit le nombre d iterations
+    for i in range(0,10):
+    # =============================================================================
+    # On lance le programme    
+    # =============================================================================
+        var[:,0] = np.sqrt(A[:,0])*(XYZ[:,0]**2 +XYZ[:,1]**2 -2*XYZ[:,2]**2) 
+        var[:,1] = np.sqrt(A[:,0])*(XYZ[:,0]**2 -2*XYZ[:,1]**2 +XYZ [:,2]**2)
+        var[:,2] = np.sqrt(A[:,0])*(XYZ[:,0]*XYZ[:,1])
+        var[:,3] = np.sqrt(A[:,0])*(XYZ[:,0]*XYZ[:,2])
+        var[:,4] = np.sqrt(A[:,0])*(XYZ[:,1]*XYZ[:,2])
+        var[:,5] = np.sqrt(A[:,0])*(XYZ[:,0])
+        var[:,6] = np.sqrt(A[:,0])*(XYZ[:,1])
+        var[:,7] = np.sqrt(A[:,0])*(XYZ[:,2]) 
+        var[:,8] = np.sqrt(A[:,0])*(1)
+        square[:,0] = np.sqrt(A[:,0])*(XYZ[:,0]**2 +XYZ[:,1]**2 +XYZ[:,2]**2) 
+
+        # inversion de la relation matricielle
+        # v = ( var  * var ) \ ( var  * square ) ;        
+        v,res,ra,s = scipy.linalg.lstsq(var,square)# least_squares_covariance(var,square,I) ;#  poids I_j sur chaque point 
+        # calcul du vecteur u(A/k, B/k, C/k, D/k, E/k, F/k, G/k, H/k, K/k, L/k) (10 composantes) 
+        # a partir de v(U, V, N, M, P, Q, R, S, T) (9 composantes), 
+        # avec un facteur multiplicatif a determiner k = -(A+B+C)/3.
+        u = np.zeros((10,1))
+        u[0] = v[0] + v[1] - 1
+        u[1] = v[0] - 2 * v[1] - 1
+        u[2] = v[1] - 2 * v[0] - 1
+        u[3] = v[2]
+        u[4] = v[3]
+        u[5] = v[4]
+        u[6] = v[5]
+        u[7] = v[6]
+        u[8] = v[7]
+        u[9] = v[8]
+        
+        # definition de la matrice rotation Sk = S/k (au facteur k pres)
+        # et calcul des coordonnees du centre de l ellipsoide C_0 (X_0, Y_0, Z_0)
+        Sk = np.array([[float(u[0]), float(u[3])/2, float(u[4])/2] , [ float(u[3])/2, float(u[1]), float(u[5])/2] , [float(u[4])/2, float(u[5])/2, float(u[2])]]);
+        TK= np.array([[ float(u[6])] , [float(u[7])] , [float(u[8])]])      
+        C_0 = - mldivide(Sk,TK)/2
+        # calcul de k et finalisation : vecteurs propres et valeurs propres de S
+        k = 1/(np.dot(np.dot(np.transpose(C_0),Sk),C_0) - float(u[9])) 
+        S = Sk*float(k)    
+        [val,direction] = np.linalg.eig(S)        
+        demi_axes = [1/np.sqrt(val[0]) , 1/np.sqrt(val[1]) , 1/np.sqrt(val[2])]         
+        # calcul d une distance caracteristique de l ecart a l ellipsoide, 
+        # en operant sur les points experimentaux une translation pour les ramener 
+        # au centre de l ellipsoide, puis une rotation pour faire coincider avec
+        # les axes principaux, et enfin une homothetie de facteurs (1/a, 1/b, 1/c) print(b[0]*size_pix_x, b[1]*size_pix_y, b[2]*size_pix_z)
+        # pour pouvoir comparer avec la sphere centree de rayon 1. Delta est la
+        # racine carree (divisee par le nb de points) de la somme des carres des distances 
+        # des points experimentaux modifiees a la sphere.
+        #
+        # translation au centre de l ellipsoide
+        XYZ0[:,0] = XYZ[:,0]-C_0[0]
+        XYZ0[:,1] = XYZ[:,1]-C_0[1]
+        XYZ0[:,2] = XYZ[:,2]-C_0[2]
+        # rotation vers les axes principaux puis homothetie vers la sphere de rayon 1
+        XYZ0=np.dot(XYZ0,direction);
+        XYZ0[:,0] = XYZ0[:,0]/demi_axes[0]
+        XYZ0[:,1] = XYZ0[:,1]/demi_axes[1]
+        XYZ0[:,2] = XYZ0[:,2]/demi_axes[2]
+        #calcul des distances de chaque point a la sphere et calcul de Delta
+        for j in range(0,N) :    
+            dist[j] = abs(1-np.sqrt(XYZ0[j,0]**2+XYZ0[j,1]**2+XYZ0[j,2]**2)) 
+            cut[j] = ((0.1-dist[j])/abs(0.1-dist[j])+1)/2 
+            A[j] = I[j]*cut[j] 
+    return demi_axes,direction,C_0
+
+def matrix_inertia (stack,barycentre_z,barycentre_x,barycentre_y,size_pix) : 
+    """definition de la matrice d inertie de la bille. On diagonalise et defini
+    sa matrice de passage."""
+    size_pix_x,size_pix_y,size_pix_z = size_pix   
+    xy=0;yz=0;xz=0;x2=0;y2=0;z2=0;N=0;
+    volume_voxel = (size_pix_x*size_pix_y*size_pix_z) 
+    masse_bille = 0 ; densite = 1
+    for k in range(stack.shape[0]):
+        for i in range(stack.shape[1]):
+            for j in range(stack.shape[2]) :
+                if stack[k,i,j]>0 :
+                    z = (k-barycentre_z)*size_pix_z
+                    x = (i-barycentre_x)*size_pix_x
+                    y = (j-barycentre_y)*size_pix_y
+                    x2=x2+x**2
+                    y2=y2+y**2
+                    z2=z2+z**2
+                    xy=xy+x*y
+                    xz=xz+x*z
+                    yz=yz+y*z
+                    N=N+1 # N est le nombre de volume elementaire composant la bille
+     
+    x2_y2=(x2+y2)*volume_voxel        
+    y2_z2=(y2+z2)*volume_voxel
+    x2_z2=(x2+z2)*volume_voxel
+    
+    xy=-xy*volume_voxel
+    xz=-xz*volume_voxel
+    yz=-yz*volume_voxel
+    masse_bille = densite*N*volume_voxel #Densite * nombre de dV * dV
+    matri = np.array([(x2_y2,xz,yz),(xz,y2_z2,xy),(yz,xy,x2_z2)], dtype = float)
+    P=eig(matri)[1] # Matrice de passage de la base definie initiallement a celle ou la matrice est diagonale 
+    D=diag(eig(matri)[0]) # matrice diagonale de matri
+    return (D, P, masse_bille) #a,b et c sont les elements diagonaux de la matrices d intertie et les autres termes
+
+def ellipsoide_parametres(D,masse_bille):
+    a = 0; b = 0; c = 0; d1 =0; d2 = 0; d3 = 0;
+    d1 = (5/(2*masse_bille))*D[0][0]
+    d2 = (5/(2*masse_bille))*D[1][1]
+    d3 = (5/(2*masse_bille))*D[2][2]
+    a = np.sqrt(-d1+d2+d3)
+    b = np.sqrt(d1-d2+d3)
+    c = np.sqrt(d1+d2-d3)
+    volume =  (4/3)*np.pi*a*b*c  
+    
+    return (a,b,c,volume)
+
+def generate_ellipsoide(a,b,c,Z0,X0,Y0,theta,psi,phi,shape) : 
+    #a , b, c sont les demis axes de l ellispoide
+    # x0, y0, z0 centre de l ellipsoide    
+    # angles d Euler (en degres) definissant les axes de l ellipsoide
+    c1 = np.cos(psi*np.pi/180);
+    s1 = np.sin(psi*np.pi/180);
+    c2 = np.cos(theta*np.pi/180);
+    s2 = np.sin(theta*np.pi/180);
+    c3 = np.cos(phi*np.pi/180);
+    s3 = np.sin(phi*np.pi/180);
+    
+    R= np.zeros((3,3))
+    R[0,:] = [s1*s2  , c1*c3-s1*s3*c2 , -c1*s3-s1*c3*c2 ] 
+    R[1,:] =  [-c1*s2  , s1*c3+c1*c2*s3 , -s1*s3+c1*c2*c3 ]
+    R[2,:] =  [ c2 , s2*s3 , s2*c3 ] 
+    
+    xyz = np.zeros((79600,3))  
+    for i in range(1,200) : 
+        for j in range(1,401) : 
+            k=(i-1)*400+j;       
+            k=k-1
+            if k <0 : continue;
+            xyz[k,0]=a*np.sin(np.pi*i/200)*np.cos(np.pi*j/200);
+            xyz[k,1]=b*np.sin(np.pi*i/200)*np.sin(np.pi*j/200);
+            xyz[k,2]=c*np.cos(np.pi*i/200);
+    RXYZ = np.zeros((79600,3))
+    for k in range(0,79600) : 
+        for n in range(0,3): 
+            RXYZ[k,n] = R[n,0]*xyz[k,0] + R[n,1]*xyz[k,1] + R[n,2]*xyz[k,2]
+    
+    ellipsoide_generee_3D = np.zeros(shape)
+    for k in range(0,79600) :   
+        if int(RXYZ[k,0]+Z0) < 0 : z = 0 ;
+        elif int(RXYZ[k,0]+Z0) >= shape[0] : z = shape[0]-1; #x = shape[1]    
+        else : z = int(RXYZ[k,0]+Z0)
+        
+        if int(RXYZ[k,1]+X0) < 0 : x = 0;
+        elif int(RXYZ[k,1]+X0) >= shape[1] : x = shape[1]-1# y = shape[2]
+        else : x = int(RXYZ[k,1]+X0)
+        
+        if int(RXYZ[k,2]+Y0) < 0 : y = 0;
+        elif int(RXYZ[k,2]+Y0) >= shape[2] : y = shape[2]-1;#z = shape[0]
+        else : y = int(RXYZ[k,2]+Y0)           
+        ellipsoide_generee_3D[z,x,y] = 1   
+           
+    return ellipsoide_generee_3D
+
+
+def axes3d_plot(za,xa,ya,zb,xb,yb,zc,xc,yc,a,b,c):
+    ap=plt.axes(projection= 3d )    
+    ordre = sorted([a,b,c])   
+    Z0=0
+    Y0=0
+    X0=0
+    # =============================================================================
+    # Nouveaux axes
+    # =============================================================================
+    z1=np.linspace(za,0,10)+Z0
+    x1=np.linspace(xa,0,10)+X0
+    y1= np.linspace(ya,0,10 )+Y0
+    
+    z2=np.linspace(zb,0,10)+Z0
+    x2=np.linspace(xb,0,10)+X0
+    y2= np.linspace(yb,0,10)+Y0
+    
+    z3=np.linspace(zc,0,10)+Z0
+    x3=np.linspace(xc,0,10)+X0
+    y3=np.linspace(yc,0,10)+Y0
+
+    if ordre.index(a) == 2 :
+        color_a =  red 
+    if ordre.index(a) == 1 :
+        color_a=  green 
+    if ordre.index(a) == 0:
+        color_a =  yellow 
+        
+    if ordre.index(b) == 2 :
+        color_b =  red 
+    if ordre.index(b) == 1 :
+        color_b =  green 
+    if ordre.index(b) == 0:
+        color_b=  yellow 
+        
+    if ordre.index(c)== 2 :
+        color_c =  red 
+    if ordre.index(c) == 1 :
+        color_c=  green 
+    if ordre.index(c) == 0:
+        color_c =  yellow 
+    # =============================================================================
+    # =============================================================================   
+    ap.plot3D(x1,y1,z1,color_a)
+    ap.plot3D(x2,y2,z2,color_b)
+    ap.plot3D(x3,y3,z3,color_c)
+    
+    ap.plot3D(X0+np.linspace(0,100,10),Y0+np.array((0,0,0,0,0,0,0,0,0,0)),Z0+np.array((0,0,0,0,0,0,0,0,0,0)), 1.0 )
+    ap.plot3D(X0+np.array((0,0,0,0,0,0,0,0,0,0)),Y0+np.linspace(0,100,10),Z0+np.array((0,0,0,0,0,0,0,0,0,0)), 0.5 )
+    ap.plot3D(X0+np.array((0,0,0,0,0,0,0,0,0,0)),Y0+np.array((0,0,0,0,0,0,0,0,0,0)),Z0+np.linspace(0,100,10), 0.0 )    
+    print("rouge est le plus grand axe, vert pour le deuxieme, et jaune pour le plus petit")
+    print("noir = z, gris = x, blanc = y")
+
+    return
+
+def angle(P):
+#    on choisi arbitrairement teta positif
+    teta = np.arccos(P[2][0])
+    if teta < 0 :
+        teta = -teta
+#        on a donc :
+    sin_psi = P[0,0]/np.sin(teta)
+    cos_psi = -P[1,0]/np.sin(teta)      
+    psi = np.sign(sin_psi)*np.arccos(cos_psi)
+        
+    sin_phi = P[2,1]/np.sin(teta)
+    cos_phi = P[2,2]/np.sin(teta)
+    phi = np.sign(sin_phi)*np.arccos(cos_phi)
+    
+    a = np.cos(psi)*np.cos(phi)-np.sin(psi)*np.cos(teta)*np.sin(phi)
+    b = np.sin(psi)*np.cos(phi)+np.cos(psi)*np.cos(teta)*np.sin(phi)
+    c = np.sin(teta)*np.sin(phi) 
+    if round(a,3) != round(P[0,1],3) and round(b,3) != round(P[1,1],3) and round(c,3) != round(P[2,1],3) : 
+        print("Ne marche pas...")
+
+    
+    teta = teta *180/np.pi
+    psi = psi *180/np.pi
+    phi = phi*180/np.pi
+    return(teta,psi,phi,P)
+
+def matrice_passage (a_cont,b_cont,c_cont,P_cont):
+    P= np.zeros_like(P_cont)
+    a,b,c = 0,0,0
+    if max(list(abs(P_cont[0,:]))) == abs(P_cont[0,0]): 
+        P[:,1] = P_cont[:,0]
+        b = a_cont
+    if max(list(abs(P_cont[0,:]))) == abs(P_cont[0,1]): 
+        P[:,1] = P_cont[:,1]
+        b = b_cont
+    if max(list(abs(P_cont[0,:]))) == abs(P_cont[0,2]): 
+        P[:,1] = P_cont[:,2]
+        b = c_cont
+        
+    if max(list(abs(P_cont[1,:])))== abs(P_cont[1,0]): 
+        P[:,2] = P_cont[:,0]
+        c = a_cont
+    if max(list(abs(P_cont[1,:]))) == abs(P_cont[1,1]): 
+        P[:,2] = P_cont[:,1]
+        c = b_cont
+    if max(list(abs(P_cont[1,:]))) == abs(P_cont[1,2]): 
+        P[:,2] = P_cont[:,2]
+        c = c_cont
+        
+    if max(list(abs(P_cont[2,:]))) == abs(P_cont[2,0]): 
+        P[:,0] = P_cont[:,0]
+        a = a_cont
+    if max(list(abs(P_cont[2,:]))) == abs(P_cont[2,1]): 
+        P[:,0] = P_cont[:,1]
+        a = b_cont
+    if max(list(abs(P_cont[2,:]))) == abs(P_cont[2,2]): 
+        P[:,0] = P_cont[:,2]   
+        a = c_cont
+        
+    if P[0,0]== P[0,1] or P[0,0] == P[0,2] or P[0,1]==P[0,2]:  
+        P = P_cont
+        a = a_cont ; b = b_cont ; c = c_cont
+        etat = "impossible a trier"
+    else : etat = "tout est ok"
+#    test sur le repere orthonorme 
+    
+    if round(P[1,1]*P[2,2]-P[1,2]*P[2,1],3) != round(P[0,0],3) : 
+        P[:,0] = -P[:,0]       
+    if P[2,0] < 0 :
+        P[:,0] = -P[:,0]
+        P[:,1] = -P[:,1]
+    if round(P[1,1]*P[2,2]-P[1,2]*P[2,1],3) == round(P[0,0],3) : 
+        print("Le repere est definitivement direct!") 
+        etat = etat + " et le repere est direct!"
+    else : etat = etat + " et on a pas reussi a le mettre direct..."
+    
+    return a,b,c,P,etat
+    
+\end{customFrame}
+
+		\section{Coeur du programme : détermination du contour } 
+		\label{chap_annexe:code_determination_contour}  
+		\begin{customFrame}
+# =============================================================================
+# Main : Coeur du programme : 
+# =============================================================================
+for element in liste_element : 
+    image = io.imread(element)     
+    if len(image.shape)>3 :
+        try :
+            from skimage.color import rgb2gray
+            image = rgb2gray(image)
+        except ImportError:
+            raise ImportError("Image au mauvais format") 
+    if len(image.shape)<3 :
+            raise ImportError("Image au mauvais format : manque de stack") 
+
+# =============================================================================
+# constantes fixees
+# =============================================================================          
+size_pix_x = 0.0812479
+size_pix_y = 0.0812479
+size_pix_z_ini = 1.5001310
+radius_circle = 5  
+sigmas = (2,4,4)
+median = (2,3,3)
+# parametres de pretraitement       
+ nbr_iteration = 200; tresh =  auto ; smooth = 1; balloonn = 1; alphas = 150;
+# pretraitement de l'image   
+    if median is None : 
+        image2 = skimage.exposure.rescale_intensity(image)    
+        image2 = skimage.exposure.equalize_hist(image2)
+        io.imsave( image_histo_egalise.tif , np.array(image2).astype(np.float32))
+    else :    
+        image2 = ndimage.filters.median_filter(image, size = None, footprint = np.ones(median), mode =  nearest )
+        image2 = skimage.exposure.rescale_intensity(image)                     
+        image2 = skimage.exposure.equalize_hist(image2)
+        io.imsave( image_histo_egalise_median.tif , np.array(image2).astype(np.float32))
+   
+    # definition de l'energie de l'image
+    gimage = inverse_gaussian_gradient(image2, alpha = alphas, sigma = sigmas)
+    io.imsave( gimage.tif , np.array(gimage).astype(np.float32))        
+    # definition du centre d etude
+    # On garde seulement les 2 des points les plus intenses pour obtenir un 
+    # centre approximatif. On se contente de cette approximation pour le pretraitement 
+    thresh = np.percentile(image2,98)
+    mask = (image2>thresh)*image2       
+    zc,xc,yc = ndimage.measurements.center_of_mass(mask)
+    if np.isnan(zc):
+        zc= image2.shape[0]/2 ; xc= image2.shape[1]/2 ; yc= image2.shape[2]/2
+
+    # definition de la sphere initiale (surface initiale)
+    initi_ls = circle_level_set(image.shape, center=(zc,xc,yc), radius=radius_circle)
+    # programme pour trouver l ellipsoide
+    evolution = []
+    callback = store_evolution_in(evolution)           
+    ls = morphological_geodesic_active_contour(gimage, nbr_iteration, initi_ls,
+                                                   smoothing = smooth, balloon= balloonn,
+                                                   threshold= tresh , iter_callback = callback)#Balloon = gonfle si positif , degonfle si negatif 
+#  
+# =============================================================================
+#    # Enregistrement des donnees         
+# =============================================================================
+    io.imsave("volume_{}_{}_{}.tif".format(name,median,sigmas), np.array(evolution[nbr_iteration]).astype(np.float32))
+    # determination exacte du contour et enregistrement du volume determine
+    contour = image_contour(evolution[nbr_iteration])
+    io.imsave("contour_{}_{}_{}.tif".format(name,median,sigmas), contour)
+    stack_volume =  np.array(evolution[nbr_iteration]).astype(np.float32)
+\end{customFrame} 
+		\section{Coeur du programme : ajustement du contour à un ellipsoïde }
+		\label{chap_annexe:code_ajustement_ellipsoide}
+\begin{customFrame}
+        size_pix = (size_pix_z,size_pix_x,size_pix_y)    
+# =============================================================================
+#     Mise en forme des donnees pour fit d un ellipsoide
+# =============================================================================
+        Z,X,Y = np.where(contour>0)
+        I = np.array([contour[np.where(contour>0)]]).T
+        if np.NaN in I : 
+            os.chdir(dossier_serie)
+            continue;
+        if np.inf in I : 
+            os.chdir(dossier_serie)
+            continue;
+        if len(I) == 0 : 
+            os.chdir(dossier_serie) 
+            continue ;
+        arr = np.zeros((X.shape[0],3))
+        arr[:,0] = Z*size_pix_z
+        arr[:,1] = X*size_pix_x
+        arr[:,2] = Y*size_pix_y
+        if len(arr) == 0 :
+            os.chdir(dossier_serie)
+            continue;
+# =============================================================================        
+# Fit d un ellipsoid par rapport au contour
+# =============================================================================        
+        (a_cont,b_cont,c_cont),P_cont, C_0 = fit_ellipsoide(arr,I)
+                                  
+# Definition du centre de masse et calcul de la matrice d inertie    
+        centre_masse_z,centre_masse_x,centre_masse_y = ndimage.measurements.center_of_mass(stack_volume)
+        D_vol,P_vol,masse_bille = matrix_inertia(stack_volume,centre_masse_z,centre_masse_x,centre_masse_y,(size_pix_x,size_pix_y,size_pix_z))
+        
+# =============================================================================        
+# Fitting d un ellipsoide avec volume
+# =============================================================================        
+
+        a_vol, b_vol, c_vol, volume_vol = ellipsoide_parametres(D_vol, masse_bille)  
+        
+# =============================================================================
+#         calculs et generation de l ellipsoide fitte avec la methode en contour
+# =============================================================================
+        ac, bc, cc, Pcont, etat_cont = matrice_passage(a_cont,b_cont,c_cont,P_cont)
+        tetac, psic, phic,Pcont = angle(Pcont)
+        centre = (centre_masse_x,centre_masse_y,centre_masse_z*size_pix_z/size_pix_x)
+        ellipsoide_generee_3D = generate_ellipsoide(ac/size_pix_x,bc/size_pix_x,cc/size_pix_x,centre_masse_z*size_pix_z/size_pix_x,centre_masse_x,centre_masse_y,psic,tetac,phic,(int(image.shape[0]*size_pix_z_ini/size_pix_y),image.shape[1],image.shape[2])) 
+        ellipsoide_genere_shape_image = np.zeros_like(image)
+        i=0
+        for k in range(0,ellipsoide_generee_3D.shape[0],ceil(size_pix_z_ini/size_pix_x)):
+            ellipsoide_genere_shape_image[i,:,:] = ellipsoide_generee_3D[k,:,:]  
+            i=i+1            
+        io.imsave("ellipsoide_contour_{}_{}_{}_{}.tif".format(name,median,sigmas,factor), np.array(ellipsoide_genere_shape_image).astype(np.float32))
+        
+# =============================================================================
+#         calculs et generation de l ellipsoide fitte avec la methode en volume
+# =============================================================================
+        av, bv, cv, Pvol, etat_vol = matrice_passage(a_vol,b_vol,c_vol,P_vol)
+        tetav, psiv, phiv,Pvol = angle(Pvol)
+        centre = (centre_masse_x,centre_masse_y,centre_masse_z*size_pix_z/size_pix_x)
+        ellipsoide_generee_3D = generate_ellipsoide(av/size_pix_x,bv/size_pix_x,cv/size_pix_x,centre_masse_z*size_pix_z/size_pix_x,centre_masse_x,centre_masse_y,psiv,tetav,phiv,(int(image.shape[0]*size_pix_z_ini/size_pix_y),image.shape[1],image.shape[2])) 
+        ellipsoide_genere_shape_image = np.zeros_like(image)
+        i=0
+        for k in range(0,ellipsoide_generee_3D.shape[0],ceil(size_pix_z_ini/size_pix_x)):
+            ellipsoide_genere_shape_image[i,:,:] = ellipsoide_generee_3D[k,:,:]  
+            i=i+1
+        io.imsave("ellipsoide_volume_{}_{}_{}_{}.tif".format(name,median,sigmas,factor), np.array(ellipsoide_genere_shape_image).astype(np.float32))
+
+\end{customFrame}
+
+		\section{Représentation 3D des axes principaux}
+		\label{chap_annexe:code_representation3D}
+\begin{customFrame}
+import plotly.graph_objs as go
+import numpy as np
+import xlrd 
+
+def get_frame_data(s, value):    
+    q1,q2,q3 = value[s]
+    a = q1[0]
+    b = q2[0] 
+    c = q3[0] 
+    
+    q1_vect = q1[1]
+    q2_vect = q2[1] 
+    q3_vect = q3[1]
+# =============================================================================
+#    Red = biggest = "rgb(0,0,255)"
+#    Yellow = middle one = "rgb(0,255,0)"
+#    Blue : small one = "rgb(255,0,0)"
+# =============================================================================
+    if abs(a-c) < 0.5 : color_a = color_b = color_c = "rgb(0,0,255)"
+    elif abs(a-b) < 0.5 and abs(b-c) > 0.5 :
+        color_a = color_b =  "rgb(0,0,255)"
+        color_c =  "rgb(255,0,0)"
+    elif abs(b-c) < 0.5 and abs(a-b) >0.5 : 
+            color_b = color_c =  "rgb(255,0,0)"
+            color_a =  "rgb(0,0,255)"
+    else : 
+        color_a = "rgb(0,0,255)"
+        color_b = "rgb(0,255,0)"
+        color_c = "rgb(255,0,0)"
+   
+    base_a = go.Scatter3d(
+                        z = [-q1_vect[0][0], q1_vect[0][0]],
+                        y = [-q1_vect[1][0], q1_vect[1][0]],
+                        x = [-q1_vect[2][0], q1_vect[2][0]], 
+                        line = dict( color = color_a , width = 5),
+                        name="a")
+    base_b = go.Scatter3d(
+                        z = [-q2_vect[0][0], q2_vect[0][0]],
+                        y = [-q2_vect[1][0], q2_vect[1][0]],
+                        x = [-q2_vect[2][0], q2_vect[2][0]], 
+                        line = dict( color = color_b, width = 5),
+                        name="b")
+    base_c = go.Scatter3d(
+                        z = [-q3_vect[0][0], q3_vect[0][0]],
+                        y = [-q3_vect[1][0], q3_vect[1][0]],
+                        x = [-q3_vect[2][0], q3_vect[2][0]], 
+                        line = dict( color = color_c, width = 5),
+                        name="c")
+  
+    return  [base_a,base_b,base_c] 
+
+# =============================================================================
+# Main - extracting datas from  
+# =============================================================================
+#Main - extracting datas from  
+workbook = xlrd.open_workbook( '2020_06_19_serie16_0.935.xlsx' )
+SheetNameList = workbook.sheet_names()
+worksheet = workbook.sheet_by_name(SheetNameList[0])  
+val1 = [];val2 = [];val3 = [];value= []
+semi_axis = [];
+for i in range(0,10):    
+    a,b,c = worksheet.cell_value(2, 1+i*4) , worksheet.cell_value(2, 2+i*4) , worksheet.cell_value(2, 3+i*4)
+    p1 = np.zeros((3,1))     
+    p2 = np.zeros((3,1)) 
+    p3 = np.zeros((3,1)) 
+
+    p1[0,0] = worksheet.cell_value(6, 1+i*4)*100   
+    p1[1,0] = worksheet.cell_value(7, 1+i*4)*100   
+    p1[2,0] = worksheet.cell_value(8, 1+i*4)*100 
+      
+    p2[0] = worksheet.cell_value(6, 2+i*4)*100   
+    p2[1] = worksheet.cell_value(7, 2+i*4)*100   
+    p2[2] = worksheet.cell_value(8, 2+i*4)*100 
+       
+    p3[0] = worksheet.cell_value(6, 3+i*4)*100   
+    p3[1] = worksheet.cell_value(7, 3+i*4)*100
+    p3[2] = worksheet.cell_value(8, 3+i*4)*100
+    
+    val1= (a,p1);val2 = (b,p2);val3 = (c,p3);
+    val = val1,val2,val3
+    value.append(sorted(val,key = lambda tri: tri[0]))
+# =============================================================================    
+time_frame = np.array(range(len(value)))  
+# =============================================================================
+# AJOUT DE LA DIRECTION DE LA PPL (ou du tissu)
+# =============================================================================
+vector_cell = go.Scatter3d( x = [0,-93.969], y = [0,34.202], z = [0,0],  marker = dict( size = 5,color = "rgb(255,255,0)"),name="Direction of cells",line = dict( color = "rgb(255,255,0)", width = 5))   
+#layout = go.Layout(margin = dict( l = 0,
+#                                  r = 0,
+#                                  b = 0,
+#                                  t = 0),
+#                       title=go.layout.Title(text="3d base")
+#                      )
+fig = go.Figure(data = get_frame_data(0,value))#, layout = layout)
+
+vector = go.Scatter3d( x = [100,0], y = [0,0], z = [0,0],  marker = dict( size = 3,color = "rgb(0,0,0)"),name="x",line = dict( color = "rgb(0,0,0)", width = 2)) 
+vector2 = go.Scatter3d( x = [0,0], y = [100,0], z = [0,0],  marker = dict( size = 3,color = "rgb(0,0,0)"),name="y",line = dict( color = "rgb(0,0,0)", width = 2)) 
+vector3 = go.Scatter3d( x = [0,0], y = [0,0], z = [100,0],  marker = dict( size = 3,color = "rgb(0,0,0)"),name="z",line = dict( color = "rgb(0,0,0)", width = 2)) 
+fig.add_traces(vector) #axes x
+fig.add_traces(vector2) #axe y
+fig.add_traces(vector3) #axe z
+fig.add_traces(vector_cell)
+
+fig.update_scenes( 
+                  xaxis_autorange=False,yaxis_autorange=False,zaxis_autorange=False,
+                  xaxis_range=[-100, 100],yaxis_range=[-100, 100],zaxis_range=[-100, 100], 
+                  camera_eye=dict(x=1.2, y=1.2, z=0.8), 
+                  # camera position # camera_projection_type= orthographic # thedefault projection is perspective
+                  )
+fig.update_layout(width=800, height=800);
+frames = []
+for  k, t in enumerate(time_frame):
+    frames.append(go.Frame(data = get_frame_data(t,value),
+                           name = f time{k} ,
+                           traces=[0,1,2]))     
+fig.update(frames=frames);  
+# =============================================================================
+#     Slider button
+# =============================================================================   
+# Create and add slider
+sliders =  [dict(steps= [dict(method=  animate ,
+                                               args= [ [ f time{k} ], #this steps refers to the frame of name f fr{k}
+                                               dict(mode=  immediate ,frame= dict( duration=100, redraw= True ),
+                                                    fromcurrent=True,transition=dict( duration= 0))],
+                                                label=f"time {k}") for k, time_frame  in enumerate(range(len(value)))], #this is the step label on the slider 
+                                  minorticklen=0,x=0, len=1)]
+fig.update_layout(sliders=sliders)   
+fig.write_html( 'nom.htlm' , auto_open=True) 
+
+\end{customFrame}
+ = 2R

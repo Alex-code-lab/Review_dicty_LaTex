@@ -1,0 +1,46 @@
+\usepackage{lipsum} % Pour générer du texte factice
+\usepackage[utf8]{inputenc} % Encodage des caractères
+\usepackage[T1]{fontenc} % Encodage de la police
+\usepackage[french]{babel} % Langue principale du document
+\usepackage{amsmath,amsfonts,amsthm} % Pour les mathématiques
+\usepackage{graphicx} % Pour inclure des images
+\usepackage{hyperref} % Pour les liens hypertextes
+\usepackage{geometry} % Configuration des marges
+\geometry{top=2cm, bottom=2cm, left=1.5cm, right=1.5cm, columnsep=20pt}
+\usepackage{authblk} % Pour la gestion des auteurs et affiliations
+\usepackage{titlesec} % Pour les titres de sections
+\usepackage{abstract} % Personnalisation du résumé
+\bibliographystyle{unsrt}  % Définition du style de bibliographie
+
+% %% Allure générale du document
+% \usepackage[notbib]{tocbibind}          % Intègre TOC, LOF, LOT dans la table des matières
+% \pagestyle{headings}                    % Style de page avec en-têtes
+% \usepackage{enumerate}                  % Pour les listes numérotées
+% \usepackage{enumitem}                   % Plus de fonctionnalités pour les listes
+% \usepackage[section]{placeins}          % Assure que les flottants restent dans leur section
+% \usepackage{epigraph}                   % Pour ajouter des épigraphes
+% \usepackage[font={small}]{caption}      % Options pour les légendes des figures/tables
+
+% \usepackage{amsmath}                    % Pour l'écriture de mathématiques avancées
+% \usepackage{amsthm}                     % Pour la définition de théorèmes et propositions
+% \usepackage{bbold}                      % Pour les polices mathématiques en gras
+% \usepackage[squaren,Gray]{SIunits}      % Pour l'écriture correcte des unités
+% \usepackage{cite}                       % Pour la gestion des citations
+% \usepackage{hyperref}                   % Pour la création de liens dans le document
+% \usepackage{graphics}                   % Pour inclure des graphiques
+% \usepackage{algorithmic}                % Pour écrire des algorithmes
+% \usepackage{subfig}                     % Pour la gestion des sous-figures
+% \usepackage{url}                        % Pour l'écriture correcte des URL
+% \usepackage{xcolor}                     % Pour la gestion des couleurs
+
+% Configuration du style des titres
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% Personnalisation de l'abstract
+\renewenvironment{abstract}
+ {\small
+  {\bfseries \abstractname\vspace{-.5em}\vspace{10pt}\par}  % Titre en gras suivi d'un saut de paragraphe
+  \noindent  % Assure que le texte commence sans indentation
+ }
+ {\par}
